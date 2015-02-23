@@ -1,0 +1,347 @@
+<html>
+  <head>
+    <title>Query Census API</title>
+    
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+         
+    <style>
+      
+    option[disabled]{
+     display:none;
+    }
+      
+    </style>
+    
+    </head>
+    <body onunload="">
+  
+    
+<div class="container">
+  <div class="jumbotron">
+    <h1>Census API</h1>
+    <p>Created By: Colorado State Demography Office</p> 
+  </div>
+  <div class="row">
+    <div class="col-sm-8">
+      
+      <h3>Select Dataset &amp; Table:</h3>
+      <!-- $('#dataset').val(); -->
+<select class="form-control" style="width:50%;" id="dataset">
+  <option value="c1980">1980 Census</option>
+  <option value="c1990">1990 Census</option>
+  <option value="c2000">2000 Census</option>
+  <option value="c2010">2010 Census</option>
+  <option value="acs0812">2008-2012 ACS</option>
+  <option value="acs0913" selected>2009-2013 ACS</option>  
+</select>
+      <br /><br />
+<form class="form-horizontal">
+  <div class="form-group">
+    <label for="inputPassword" class="col-sm-2 control-label">Filter</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="tableSearch" placeholder="Search Tables...">
+    </div>
+        <div class="col-sm-2">
+    </div>
+  </div>
+</form>
+<div class="form-group">
+
+  <select class="form-control" id="tables" style="width:90%;" size='15'>
+
+  </select>
+</div>
+      
+    </div>
+    <div class="col-sm-4">
+      <h3>Select Geography:</h3>        
+      <!-- $('#sumlev').val(); -->
+<select class="form-control" style="width:90%;" id="sumlev">
+  <option value="state" selected>All States</option>
+  <option value="county">All Counties</option>
+  <option value="place">All Places</option>
+  <option value="tract">All Census Tracts</option>
+  <option value="bg">All Census Block Groups</option>
+</select>
+      
+
+      <p style="width:90%; margin-top: 10px; text-align:center;" class="dontshow">in</p>
+            <!-- $('#statesel').val(); -->
+<select class="form-control dontshow" style="width:90%;" id="statesel" >
+  <option value="1">Alabama</option>
+  <option value="2">Alaska</option>
+  <option value="4">Arizona</option>
+  <option value="5">Arkansas</option>
+  <option value="6">California</option>
+  <option value="8" selected>Colorado</option>
+  <option value="9">Connecticut</option>
+  <option value="10">Delaware</option>
+  <option value="11">District of Columbia</option>
+  <option value="12">Florida</option>
+  <option value="13">Georgia</option>
+  <option value="15">Hawaii</option>  
+  <option value="16">Idaho</option>
+  <option value="17">Illinois</option>
+  <option value="18">Indiana</option>
+  <option value="19">Iowa</option>
+  <option value="20">Kansas</option>
+  <option value="21">Kentucky</option>
+  <option value="22">Louisiana</option>
+  <option value="23">Maine</option>
+  <option value="24">Maryland</option>
+  <option value="25">Massachusetts</option>  
+  <option value="26">Michigan</option>
+  <option value="27">Minnesota</option>
+  <option value="28">Mississippi</option>
+  <option value="29">Missouri</option>
+  <option value="30">Montana</option>
+  <option value="31">Nebraska</option>
+  <option value="32">Nevada</option>
+  <option value="33">New Hampshire</option>
+  <option value="34">New Jersey</option>
+  <option value="35">New Mexico</option>  
+  <option value="36">New York</option>
+  <option value="37">North Carolina</option>
+  <option value="38">North Dakota</option>
+  <option value="39">Ohio</option>
+  <option value="40">Oklahoma</option>
+  <option value="41">Oregon</option>
+  <option value="42">Pennsylvania</option>
+  <option value="44">Rhode Island</option>
+  <option value="45">South Carolina</option>
+  <option value="46">South Dakota</option>    
+  <option value="47">Tennessee</option>
+  <option value="48">Texas</option>
+  <option value="49">Utah</option>
+  <option value="50">Vermont</option>
+  <option value="51">Virginia</option>
+  <option value="53">Washington</option>
+  <option value="54">West Virginia</option>
+  <option value="55">Wisconsin</option>  
+  <option value="56">Wyoming</option>  
+</select>
+
+      <br /><br />
+      <p><b>OR</b> Search for a Specific Geography</p>
+
+    <div id="typeparent">
+        <input id="type" class="typeahead" type="text" data-provide="typeahead" autocomplete="off">
+    </div>
+      
+      <br /><br /><br />
+<div class="checkbox">
+  <label><input id="checkmoe" type="checkbox" value="" >Include Margin of Error (ACS Only)</label>
+</div>
+    </div>
+  </div>
+  
+    <div class="row">
+    <div class="col-sm-12">
+<hr />
+      <input class="btn btn-default" type="submit" value="Get CSV" onclick="send('csv','demog');">&nbsp;&nbsp;&nbsp;<input class="btn btn-default" type="submit" value="Get JSON" onclick="send('json','demog');">&nbsp;&nbsp;&nbsp;<input class="btn btn-default" type="submit" value="Get GeoJSON" onclick="send('json','geojson');">
+      <br />
+      <br />
+      </div>
+  </div>
+</div>
+
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+      
+        <script src="../typeahead/bootstrap3-typeahead.min.js"></script>
+        <script src="../typeahead/typeaheadplacedata.js"></script>
+      
+    <script>
+
+var selectgeonum='';
+var $input;      
+      
+$(document).ready(function() {
+  
+
+  $input = $('.typeahead');
+  
+  $input.typeahead({source: typeaheadplacedata, 
+                  autoSelect: true,
+                    minLength: 3}); 
+  
+
+  //below is prob useless?
+  $input.change(function() {
+
+    var current = $input.typeahead("getActive");
+             selectgeonum = (current.id);
+    if (current) {
+        // Some item from your model is active!
+        if (current.name == $input.val()) {
+            // This means the exact match is found. Use toLowerCase() if you want case insensitive match.
+                       selectgeonum = (current.id);
+        } else {
+            // This means it is only a partial match, you can either add a new item 
+            // or take the active if you don't want new items
+                       selectgeonum = (current.id);
+        }
+    } else {
+        // Nothing is active so it is a new value (or maybe empty value)
+    }
+  });
+  
+  
+  //initial setup
+  $('#sumlev').val('state');
+  $('#statesel').val('8');  
+  $('#dataset').val('acs0913');  
+  $('#tableSearch').val('');  
+  $('#checkmoe').prop('checked', false);  
+  
+  $('.dontshow').hide();
+  
+  //load acs0913 tables into box
+  loadtables('acs0913','data');
+  
+  
+  //setup events
+  $( "#sumlev" ).on( "change", function() {
+
+    if($( this ).val()=='state'){ $('.dontshow').hide();}
+    if($( this ).val()=='county'){ $('.dontshow').show();}
+    if($( this ).val()=='place'){ $('.dontshow').show();}   
+    if($( this ).val()=='tract'){ $('.dontshow').show();}
+    if($( this ).val()=='bg'){ $('.dontshow').show();}       
+    
+});  //end sumlev on change 
+
+  $( "#dataset" ).on( "change", function() {
+  $('#tables').empty();
+
+    
+    if($(this).val()=='acs0913'){
+      loadtables('acs0913','data');
+    }
+    
+    if($(this).val()=='acs0812'){
+      loadtables('acs0812','data');
+    }
+    
+    if($(this).val()=='c2010'){
+      loadtables('c2010','data');
+    }
+    
+    if($(this).val()=='c2000'){
+      loadtables('c2000','sf1');
+      loadtables('c2000','sf3');      
+    }
+    
+    if($(this).val()=='c1990'){
+      loadtables('c1990','sf1');
+      loadtables('c1990','sf3');      
+    }
+    
+    if($(this).val()=='c1980'){
+      loadtables('c1980','sf1');
+      loadtables('c1980','sf3');      
+    }
+                      
+});  //end dataset on change
+  
+  $( "#tableSearch" ).on( "keyup", function() {
+    
+    $( ".toptions" ).each(function( index ) {
+      if(($( this ).text().toLowerCase().indexOf($( "#tableSearch" ).val().toLowerCase()))< 0){$( this ).prop('disabled',true);}else{$( this ).prop('disabled',false);}
+    });  
+  
+}); //end table search on key up
+  
+  }); //end document ready
+      
+      
+      
+          function loadtables(db, schema){
+
+             $.ajax({
+          url: "http://54.69.15.55/api/meta.php?db="+db+"&schema="+schema,
+          dataType: 'json',
+          success: showdata
+          }); 
+      
+      function showdata(data){
+        
+        var showschema='';
+        if(db=='c1980'){showschema=schema+" - ";}
+        if(db=='c1990'){showschema=schema+" - ";}
+        if(db=='c2000'){showschema=schema+" - ";}
+        
+        var dropdowntables="";
+        for(i=0;i<data.length;i++){
+          dropdowntables=dropdowntables+"<option class='toptions' >"+showschema+data[i].table_id+": "+data[i].table_title+"</option>";
+          
+        }
+        $('#tables').append(dropdowntables);
+      }
+
+    }; //end loadtables
+
+      
+      function send(type, api){
+        var table, schema, res, subsplit, sumlev, geonum; 
+
+        //if havent selected a table yet
+        if($('select[id=tables]').val()==null){alert('Please select a table!'); return 0;}
+        
+        //sumlev
+        var geodescription = $('#sumlev').val();
+        if(geodescription=='state'){sumlev='40';}
+        if(geodescription=='county'){sumlev='50';}
+        if(geodescription=='place'){sumlev='160';}
+        if(geodescription=='tract'){sumlev='140';}
+        if(geodescription=='bg'){sumlev='150';}        
+        
+        //selected state
+        var state = '&state=' + $('#statesel').val();
+        if(geodescription=='state'){state='';} //choosing 1 state is disabled
+        
+        //dataset
+        var dataset = $('#dataset').val();
+        
+        //selected table text
+        var tablestring=$('select[id=tables]').val();
+        
+        //check for moe checkbox
+        var moe='';
+        if($('#checkmoe').is(':checked')){moe='&moe=yes';}
+        
+        if($input.val()==''){geonum='';}else{if(selectgeonum!==''){geonum='&geonum='+selectgeonum}}
+        
+        //parse option text to get schema and table information
+        if(dataset=='c1980' || dataset=='c1990' || dataset=='c2000'){
+          
+          res = tablestring.split(" - ");
+          schema = res[0];
+
+          subsplit=res[1].split(":");
+          table=subsplit[0];
+          
+        }else{
+          
+          schema='data';
+        
+          res = tablestring.split(":");
+          table=res[0];
+
+        }
+        
+       //send to demog.php
+        window.location.href = 'http://54.69.15.55/api/'+api+'.php?limit=99999&db='+dataset+'&schema='+schema+'&table='+table+'&sumlev='+sumlev+'&type='+type+moe+state+geonum;
+                
+        
+      }
+      
+      
+      
+    </script>
+
+  </body>
+</html>
