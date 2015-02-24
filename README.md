@@ -108,3 +108,7 @@ http://54.69.15.55/api/geojson.php?table=p1&sumlev=50&db=c1990&state=8&bb=-105,4
 <b>db</b>: currently valid are acs0913, acs0812, c2010, c2000, c1990, c1980.  Required - no default
 
 <b>schema</b>: specify 'sf1' or 'sf3' for c1980, c1990, and c2000.  Specify 'data' for c2010, acs0913, acs0812. Required - no default
+
+example query:
+(table metadata for 1990 Census Summary File 1)
+http://54.69.15.55/api/meta.php?db=c1990&schema=sf1
