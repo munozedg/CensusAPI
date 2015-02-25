@@ -151,8 +151,8 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
       
-        <script src="../typeahead/bootstrap3-typeahead.min.js"></script>
-        <script src="../typeahead/typeaheadplacedata.js"></script>
+        <script src="typeahead/bootstrap3-typeahead.min.js"></script>
+        <script src="typeahead/typeaheadplacedata.js"></script>
       
     <script>
 
@@ -262,7 +262,7 @@ $(document).ready(function() {
           function loadtables(db, schema){
 
              $.ajax({
-          url: "http://54.69.15.55/api/meta.php?db="+db+"&schema="+schema,
+          url: "meta.php?db="+db+"&schema="+schema,
           dataType: 'json',
           success: showdata
           }); 
@@ -334,7 +334,7 @@ $(document).ready(function() {
         }
         
        //send to demog.php
-        window.location.href = 'http://54.69.15.55/api/'+api+'.php?limit=99999&db='+dataset+'&schema='+schema+'&table='+table+'&sumlev='+sumlev+'&type='+type+moe+state+geonum;
+        window.location.href = api+'.php?limit=99999&db='+dataset+'&schema='+schema+'&table='+table+'&sumlev='+sumlev+'&type='+type+moe+state+geonum;
                 
         
       }
