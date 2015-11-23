@@ -1,14 +1,16 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 //TEST FILE - NOT FOR PRODUCTION
-header('Content-disposition: attachment; filename=geoFile.geojson');
-      header('Content-Type: application/json');
+//header('Content-disposition: attachment; filename=geoFile.geojson');
+   //   header('Content-Type: application/json');
     // Disable caching
-    header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
-    header("Pragma: no-cache"); // HTTP 1.0
-    header("Expires: 0"); // Proxies
+  //  header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
+  //  header("Pragma: no-cache"); // HTTP 1.0
+  //  header("Expires: 0"); // Proxies
+
 
 require 'connect.php';
+
 //file with connection information
 //setup like:
 //$server="server";
@@ -111,14 +113,15 @@ if($zoom==16){$tolerance=0.0001;}
   //if no fields or tables are selected
 // if (!(isset($_GET['table'])) && !(isset($_GET['field']))){goto a;}
 
-  
+
+//echo $_SERVER['SERVER_ADDR'];
 // attempt a connection
 $dbh = pg_connect("host=".$server." dbname=".$db." user=".$user." password=".$password);
 
 if (!$dbh) {
+  echo 'terminating';
     die("Error in connection: " . pg_last_error());
 }
-
 
 
   //if no fields are selected (then a table must be).  Create fields list based on the given table.
