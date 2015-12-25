@@ -36,10 +36,11 @@ if (isset($_GET['table'])){$table = make_safe($_GET['table']);} //comma delimite
 
 //single select
 if (isset($_GET['sumlev'])){$sumlev = make_safe($_GET['sumlev']);}  //required for geojson
-if (isset($_GET['db'])){$db = make_safe($_GET['db']);}else{$db='acs0913';} //if no db given, assume most current
+if (isset($_GET['db'])){$db = make_safe($_GET['db']);}else{$db='acs1014';} //if no db given, assume most current
 //set default for schema if it is missing
 if (isset($_GET['schema'])){$schema = make_safe($_GET['schema']);}else{
-   if($db=='acs0913'){$schema='data';}elseif // for example, acs0913 defaults to data 
+     if($db=='acs1014'){$schema='data';}elseif // for example, acs1014 defaults to data 
+  ($db=='acs0913'){$schema='data';}elseif // for example, acs0913 defaults to data 
   ($db=='acs0812'){$schema='data';}elseif // for example, acs0812 defaults to data
   ($db=='c2010'){$schema='data';}elseif // c2010 defaults to data
   ($db=='c2000'){$schema='sf1';}elseif // c1990 defaults to sf1
@@ -50,7 +51,8 @@ if (isset($_GET['schema'])){$schema = make_safe($_GET['schema']);}else{
 //carto or tiger or nhgis
 $geo=""; //for now, geo will be set as a default
 
-  if($db=='acs0913'){$geo='carto';}elseif // for example, acs0812 defaults to data
+  if($db=='acs1014'){$geo='carto';}elseif // for example, acs0812 defaults to data
+  ($db=='acs0913'){$geo='carto';}elseif // for example, acs0812 defaults to data  
   ($db=='acs0812'){$geo='carto';}elseif // for example, acs0812 defaults to data    
   ($db=='c2010'){$geo='carto';}elseif // c2010 defaults to data
   ($db=='c2000'){$geo='carto';}elseif // c1990 defaults to sf1
@@ -75,7 +77,7 @@ if (isset($_GET['limit'])){$limit = make_safe($_GET['limit']);}
 
 //if database is acs0812, check to see if moe option is flagged
 $moe='no';
-if($db=='acs0812' or $db=='acs0913'){if (isset($_GET['moe'])){$moe=make_safe($_GET['moe']);}}
+if($db=='acs0812' or $db=='acs0913' or $db=='acs1014'){if (isset($_GET['moe'])){$moe=make_safe($_GET['moe']);}}
 
 
 
