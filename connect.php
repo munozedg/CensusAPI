@@ -7,6 +7,7 @@ $dev = substr($_SERVER['SERVER_NAME'],0,10);
 if($dev=='red-meteor'){$server="104.197.26.248";}else{$server=$_SERVER['SERVER_NAME'];}
 $user="codemog";
 $password="demography";
+$port="5433";
 
 //echo $_SERVER['SERVER_ADDR'];
 ?>
