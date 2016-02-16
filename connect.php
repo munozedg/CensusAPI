@@ -9,5 +9,5 @@ $user="codemog";
 $password="demography";
 $port="5433";
 
-//echo $_SERVER['SERVER_ADDR'];
+echo $_SERVER['SERVER_NAME'];
 ?>
