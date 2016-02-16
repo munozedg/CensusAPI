@@ -80,6 +80,9 @@ $moe='no';
 if($db=='acs0812' or $db=='acs0913' or $db=='acs1014'){if (isset($_GET['moe'])){$moe=make_safe($_GET['moe']);}}
 
 
+//if database is most current (now acs1014) port is 5433 to take advantage of ssd
+$port="5432";
+if($db=='acs1014'){$port="5433";}else{$port="5432";}
 
 //variables and arrays to use later
   $tablelist=[]; //array of all tables used in query
@@ -118,7 +121,7 @@ if($zoom==16){$tolerance=0.0001;}
 
 //echo $_SERVER['SERVER_ADDR'];
 // attempt a connection
-$dbh = pg_connect("host=".$server." dbname=".$db." user=".$user." password=".$password);
+$dbh = pg_connect("host=".$server." port=".$port." dbname=".$db." user=".$user." password=".$password);
 
 if (!$dbh) {
   echo 'terminating';
