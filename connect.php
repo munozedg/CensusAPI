@@ -4,7 +4,7 @@
 //vs Server Elsewhere (use local database)
 $dev = substr($_SERVER['SERVER_NAME'],0,10);
 //echo $dev;
-if($dev=='red-meteor'){$server="54.69.15.55";}else{$server=$_SERVER['SERVER_NAME'];}
+if($dev=='red-meteor'){$server="104.197.26.248";}else{$server=$_SERVER['SERVER_NAME'];}
 $user="codemog";
 $password="demography";
 
