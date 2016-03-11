@@ -266,7 +266,7 @@ $(document).ready(function() {
           function loadtables(db, schema){
 
              $.ajax({
-          url: "meta.php?db="+db+"&schema="+schema,
+          url: "http://104.197.26.248:4002/meta?db="+db+"&schema="+schema,
           dataType: 'json',
           success: showdata
           }); 
@@ -338,7 +338,7 @@ $(document).ready(function() {
         }
         
        //send to demog.php
-        window.location.href = api+'.php?limit=99999&db='+dataset+'&schema='+schema+'&table='+table+'&sumlev='+sumlev+'&type='+type+moe+state+geonum;
+        window.location.href = 'http://104.197.26.248:4002/' + api + '?limit=99999&db='+dataset+'&schema='+schema+'&table='+table+'&sumlev='+sumlev+'&type='+type+moe+state+geonum;
                 
         
       }

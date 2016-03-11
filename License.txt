@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) [2015] [Colorado Department of Local Affairs, Colorado State Demography Office]
+Copyright (c) [2016] [Colorado Department of Local Affairs, Colorado State Demography Office]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
