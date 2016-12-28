@@ -35,7 +35,8 @@
   <option value="c2010">2010 Census</option>
   <option value="acs0812">2008-2012 ACS</option>
   <option value="acs0913">2009-2013 ACS</option>  
-  <option value="acs1014" selected>2010-2014 ACS</option>    
+  <option value="acs1014">2010-2014 ACS</option>
+  <option value="acs1115" selected>2011-2015 ACS</option>
 </select>
       <br /><br />
 <form class="form-horizontal">
@@ -194,14 +195,14 @@ $(document).ready(function() {
   //initial setup
   $('#sumlev').val('state');
   $('#statesel').val('8');  
-  $('#dataset').val('acs1014');  
+  $('#dataset').val('acs1115');  
   $('#tableSearch').val('');  
   $('#checkmoe').prop('checked', false);  
   
   $('.dontshow').hide();
   
   //load acs1014 tables into box
-  loadtables('acs1014','data');
+  loadtables('acs1115','data');
   
   
   //setup events
@@ -217,6 +218,11 @@ $(document).ready(function() {
 
   $( "#dataset" ).on( "change", function() {
   $('#tables').empty();
+
+     if($(this).val()=='acs1115'){
+      loadtables('acs1115','data');
+      console.log("Loading acs115 tables");
+    }
 
      if($(this).val()=='acs1014'){
       loadtables('acs1014','data');
