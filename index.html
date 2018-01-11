@@ -221,9 +221,14 @@ $(document).ready(function() {
   $( "#dataset" ).on( "change", function() {
   $('#tables').empty();
 
+    if($(this).val()=='acs1216'){
+      loadtables('acs1216','data');
+      console.log("Loading acs1216 tables");
+    }
+    
      if($(this).val()=='acs1115'){
       loadtables('acs1115','data');
-      console.log("Loading acs115 tables");
+      console.log("Loading acs1115 tables");
     }
 
      if($(this).val()=='acs1014'){
