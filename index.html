@@ -34,6 +34,7 @@
   <option value="c2000">2000 Census</option>
   <option value="c2010">2010 Census</option>
   <option value="acs0610">2006-2010 ACS</option>
+  <option value="acs0711">2007-2011 ACS</option>
   <option value="acs0812">2008-2012 ACS</option>
   <option value="acs0913">2009-2013 ACS</option>  
   <option value="acs1014">2010-2014 ACS</option>
@@ -239,6 +240,10 @@ $(document).ready(function() {
     
     if($(this).val()=='acs0812'){
       loadtables('acs0812','data');
+    }
+    
+    if($(this).val()=='acs0711'){
+      loadtables('acs0711','data');
     }
     
     if($(this).val()=='acs0610'){
