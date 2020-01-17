@@ -223,6 +223,10 @@ $(document).ready(function() {
   $( "#dataset" ).on( "change", function() {
   $('#tables').empty();
 
+    if($(this).val()=='acs1418'){
+      loadtables('acs1317','data');
+    }
+    
     if($(this).val()=='acs1317'){
       loadtables('acs1317','data');
     }
