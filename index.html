@@ -41,7 +41,8 @@
   <option value="acs1115">2011-2015 ACS</option>
   <option value="acs1216">2012-2016 ACS</option>
   <option value="acs1317">2013-2017 ACS</option>
-  <option value="acs1418" selected>2014-2018 ACS</option>
+  <option value="acs1418">2014-2018 ACS</option>
+  <option value="acs1519" selected>2015-2019 ACS</option>
 </select>
       <br /><br />
 <form class="form-horizontal">
@@ -224,6 +225,10 @@ $(document).ready(function() {
   $( "#dataset" ).on( "change", function() {
   $('#tables').empty();
 
+    if($(this).val()=='acs1519'){
+      loadtables('acs1519','data');
+    }
+    
     if($(this).val()=='acs1418'){
       loadtables('acs1418','data');
     }
