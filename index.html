@@ -229,8 +229,12 @@ $(document).ready(function() {
   $( "#dataset" ).on( "change", function() {
   $('#tables').empty();
 
+    if($(this).val()=='acs1822'){
+      loadtables('acs1822','data');
+    }
+    
     if($(this).val()=='acs1721'){
-      loadtables('acs1620','data');
+      loadtables('acs1721','data');
     }
     
     if($(this).val()=='acs1620'){
